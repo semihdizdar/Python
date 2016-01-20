@@ -1,0 +1,11 @@
+# Mızık çocuklarla yanan patates (hot potato) oyununu gerçekleyiniz.
+
+def hotPotatoe(alist,N):
+    q=Queue()
+    for isim in alist:
+        q.queue(isim)
+    while q.size()>1:
+        for i in range(N):
+            q.queue(q.enqueue())
+        q.dequeue()
+    return q.dequeue()
