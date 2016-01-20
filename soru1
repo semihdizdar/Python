@@ -1,0 +1,55 @@
+#a) Fonksiyonun geri döndürme yeteneği yokken ve döngü kullanmaksızın 10'luk tabandaki
+#bir sayıyı herhangi bir tabana dönüştüren baseConvert işlevi yazınız. İpucu: özyineleme ve
+#stack yardımcı olabilir. Örnek:  baseConvert(123, 7) 123 sayısının 7 taban karşılığı üretilecek.
+
+
+# -*- coding: utf-8 -*-
+class Stack:
+    def __init__(self):
+        self.list=[]
+    def pop(self):
+        return self.list.pop()
+    def push(self,a):
+        self.list.append(a)
+    def show(self):
+        return self.list
+
+aStack = Stack()
+convert = "0123456789ABCDEF"
+def baseConvert(n,base):
+    if n < base:
+        aStack.push(convert[n])
+    else:
+        aStack.push(convert[n%base])
+        baseConvert(n / base,base)
+        return aStack.show()
+
+print "Onluk Tabanında Bir Sayı Giriniz : "
+n = input()
+print "Dönüştürülecek Tabanı Giriniz : "
+base = input()
+print  baseConvert(n,base)
+
+#--------------------------------------------------------
+
+# b) Döngü kullanmaksızın argüman olarak verilen listenin ortalamasını hesaplayan programı/işlevi yazınız.
+
+s = Stack()
+def hesapla(liste):
+    try:
+        s.push(liste[0])
+        hesapla(liste[1:])
+    except IndexError:
+        return ortalama(s,s.size()) #listeyi Stack e attik ve uzunlugunu bulduk
+
+def ortalama(s,uzunluk):
+    if s.size() == 1:
+        print "Listedeki elemanlarin toplami = ",s.peek()
+        print "Listenin ortalamasi = ",float (s.pop()) / uzunluk
+    else:
+        i = s.pop() + s.pop() #2 eleman cekip onlari topluyoruz Stack e ekliyoruz
+        s.push(i)
+        ortalama(s,uzunluk)
+
+liste = [1,2,3,4,5]
+hesapla(liste)
